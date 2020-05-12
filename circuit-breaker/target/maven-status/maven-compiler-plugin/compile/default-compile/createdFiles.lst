@@ -1,0 +1,4 @@
+com/taoding/service/BookService.class
+com/taoding/service/impl/BookServiceImpl.class
+com/taoding/CircuitBreakerApplication.class
+com/taoding/controller/BookController.class

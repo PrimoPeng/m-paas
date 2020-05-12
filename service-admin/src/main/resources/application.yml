@@ -1,0 +1,55 @@
+server:
+  port: 8383
+
+spring:
+  application:
+    name: service-admin
+  jmx:
+    enabled: true
+  security:
+    user:
+      name: admin
+      password: admin
+  boot:
+    admin:
+      ui:
+        title: "M-PAAS 管理平台"
+
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    status-page-url-path: /actuator/info
+    metadata-map:
+      startup: ${random.int}    #needed to trigger info and endpoint update after restart
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    healthcheck:
+      enabled: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+
+management:
+  server:
+    port: 8991
+    ssl:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+info:
+  app:
+    name: service-admin
+    description: 服务管理器
+    version: 1.0.0

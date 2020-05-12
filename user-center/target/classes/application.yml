@@ -1,0 +1,80 @@
+# 服务配置
+server:
+  port: 8762
+
+# spring配置
+spring:
+  application:
+    name: user-center
+  mvc:
+    servlet:
+      path: /
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.169.1.235:3306/jfinal_demo?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: 1qaz#EDC
+    # 数据库连接池参数
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,log4j,
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  jmx:
+    enabled: true
+
+
+#日志配置文件
+logging:
+  config: classpath:logback.xml
+  file: /var/log/user-center/user-center.log
+
+#mybatis 配置:
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+# eureka 配置
+eureka:
+  instance:
+    statusPageUrlPath: /actuator/info
+    healthCheckUrlPath: /actuator/health
+    homePageUrl: https://www.baidu.com/
+  client:
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  server:
+    port: 8989
+    ssl:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+
+
+
+
+info:
+  app:
+    name: user-center
+    description: 用户中心
+    version: 1.0.0

@@ -1,0 +1,42 @@
+server:
+  port: 8191
+
+spring:
+  application:
+    name: zuul-gateway
+
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    status-page-url-path: /actuator/info
+  client:
+    service-url:
+      default: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    users:
+      path: /user-center/**
+      serviceId: user-center
+    breaker:
+      path: /breaker/**
+      serviceId: circuit-breaker
+
+management:
+  server:
+    port: 8993
+    ssl:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+info:
+  app:
+    name: zuul-gateway
+    description: 服务注册中心
+    version: 1.0.0

@@ -1,0 +1,37 @@
+server:
+  port: 8292
+
+spring:
+  application:
+    name: circuit-breaker
+
+eureka:
+  instance:
+    statusPageUrlPath: /actuator/info
+    healthCheckUrlPath: /actuator/health
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+management:
+  server:
+    port: 8990
+    ssl:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+info:
+  app:
+    name: circuit-breaker
+    description: 熔断器
+    version: 1.0.0
